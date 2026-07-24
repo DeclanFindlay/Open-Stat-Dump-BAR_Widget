@@ -23,6 +23,9 @@ as the gui_stats_widget.lua file
 
 and that you select the .lua file output option in Open-Stat-Dump
 
+you may need to adjust the panal coord to change the panal location on your screen 
+it is currently set to fit on a 1920 x 1080 monitor you should see it around the top right 
+
 # License -------------
 
 Open-Stat-Dump-BAR_Widget is under the MIT License check the License file for more information 
