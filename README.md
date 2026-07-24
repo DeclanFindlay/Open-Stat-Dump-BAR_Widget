@@ -4,9 +4,18 @@ This is a Beyond all reason gui widget that
 displays system stats in game (NOT THE MENU/LOBBY)
 it consumes the output from the Open-Stat-Dump program
 can be found here 
-
 ```bash
 https://github.com/DeclanFindlay/Open-Stat-Dump 
+```
+
+Beyond all reason can be found and downloaded here
+```bash
+https://www.beyondallreason.info/download
+```
+
+the repo can be found here 
+```bash
+https://github.com/beyond-all-reason/Beyond-All-Reason
 ```
 
 # how to use Open-Stat-Dump-BAR_Widget -------------
