@@ -24,6 +24,14 @@ as the gui_stats_widget.lua file
 and that you select the .lua file output option in Open-Stat-Dump
 
 you may need to adjust the panal coord to change the panal location on your screen 
+eg. 
+local panel = {
+    x1 = 1375,
+    y1 = 1030,
+    x2 = 1550,
+    y2 = 1078,
+    round = 6
+}
 it is currently set to fit on a 1920 x 1080 monitor you should see it around the top right 
 
 # License -------------
