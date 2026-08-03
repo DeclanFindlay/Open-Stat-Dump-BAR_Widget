@@ -36,6 +36,7 @@ to see it
 
 you may need to adjust the panal coord to change the panal location on your screen 
 eg. 
+``` bash
 local panel = {
     x1 = 1375,
     y1 = 1030,
@@ -43,7 +44,16 @@ local panel = {
     y2 = 1078,
     round = 6
 }
+```
 it is currently set to fit on a 1920 x 1080 monitor you should see it around the top right 
+<p>
+    <img src="images/widget_location.png" width="400">
+</p>
+
+also make sure the widget is actually enabled in game eg.
+<p>
+    <img src="images/check_widget_enabled.png" width="400">
+</p>
 
 # License -------------
 
