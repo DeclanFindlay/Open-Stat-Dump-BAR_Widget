@@ -47,12 +47,12 @@ local panel = {
 ```
 it is currently set to fit on a 1920 x 1080 monitor you should see it around the top right 
 <p>
-    <img src="images/widget_location.png" width="400">
+    <img src="images/widget_location.png" width="600">
 </p>
 
 also make sure the widget is actually enabled in game eg.
 <p>
-    <img src="images/check_widget_enabled.png" width="400">
+    <img src="images/check_widget_enabled.png" width="600">
 </p>
 
 # License -------------
