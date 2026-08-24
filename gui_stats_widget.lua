@@ -1,3 +1,8 @@
+-- gpu types, pick the right one for your machine
+local GpuNvidia = "GpuNvidia"
+local GpuIntel = "GpuIntel"
+local GpuAmd = "GpuAmd"
+
 local RectRound
 
 local lastReload = 0
@@ -65,7 +70,7 @@ local function GetMainCpuTemp()
     return "N/A"
 end
 
-local function GetMainGpuTemp()
+local function GetMainGpuTemp(gpuType)
 
     if not stats then
         return "N/A"
@@ -73,11 +78,14 @@ local function GetMainGpuTemp()
 
     for _, hardware in ipairs(stats) do
 
-        if hardware.hardwareType == "GpuNvidia" then
+        if hardware.hardwareType == gpuType then
 
             for _, sensor in ipairs(hardware.sensors) do
 
                 if sensor.sensorType == "Temperature" 
+                -- may need to change "GPU Core" to whatever your gpu ouput is 
+                -- currently set for GpuNvidia 
+                -- check the open-stat-dump output file (data.lua)
                 and sensor.sensorName == "GPU Core" then
 
                     return string.format("%.1f °C", sensor.sensorValue)
@@ -144,7 +152,8 @@ function widget:Update(dt)
 
     text = text ..
         "GPU Temp: " ..
-        GetMainGpuTemp() ..
+        -- change to your gpu type here 
+        GetMainGpuTemp(GpuNvidia) .. -- <------
         "\n"
 
 end

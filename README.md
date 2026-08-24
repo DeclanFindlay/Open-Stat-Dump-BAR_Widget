@@ -27,6 +27,23 @@ you will need to create the Widgets folder if it dose not exist already
 the game engine will read the file automatically from there
 
 # IMPORTANT -------------
+
+you will need to manualy change to your gpu type 
+GPU TYPES -----
+local GpuNvidia = "GpuNvidia"
+local GpuIntel = "GpuIntel"
+local GpuAmd = "GpuAmd"
+GPU TYPES -----
+
+find this code in gui_stats_widget.lua: 
+```bash
+-- change to your gpu type here 
+GetMainGpuTemp(GpuNvidia) .. -- <------
+```
+
+note it is currently set to a nvidia gpu 
+
+open-stat-dump setup:
 make sure to set Open-Stat-Dump output location to the same location
 as the gui_stats_widget.lua file 
 
@@ -34,6 +51,7 @@ and that you select the .lua file output option in Open-Stat-Dump
 you also need to set the file name to data for gui_stats_widget.lua
 to see it 
 
+widget location adjustments:
 you may need to adjust the panal coord to change the panal location on your screen 
 eg. 
 ``` bash
