@@ -1,7 +1,10 @@
 -- gpu types, pick the right one for your machine
+
+-- GPU TYPES -----
 local GpuNvidia = "GpuNvidia"
 local GpuIntel = "GpuIntel"
 local GpuAmd = "GpuAmd"
+-- GPU TYPES -----
 
 local RectRound
 
