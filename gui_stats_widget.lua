@@ -16,7 +16,7 @@ local text = "Loading stats..."
 
 local panel = {
     x1 = 1375,
-    y1 = 1030,
+    y1 = 1000,
     x2 = 1550,
     y2 = 1078,
     round = 6
@@ -68,6 +68,31 @@ local function GetMainCpuTemp()
 
     if maxTemp then
         return string.format("%.1f °C", maxTemp)
+    end
+
+    return "N/A"
+end
+
+local function GetMainCpuUsage()
+
+    if not stats then
+        return "N/A"
+    end
+
+    for _, hardware in ipairs(stats) do
+
+        if hardware.hardwareType == "Cpu" then
+
+            for _, sensor in ipairs(hardware.sensors) do
+
+                if sensor.sensorType == "Load" and sensor.sensorName == "CPU Total" then
+
+                    return string.format("%.1f %%", sensor.sensorValue)
+
+                end
+            end
+
+        end
     end
 
     return "N/A"
@@ -152,6 +177,11 @@ function widget:Update(dt)
         "CPU Temp: " ..
         GetMainCpuTemp() ..
         "\n"
+
+    text = text ..
+        "CPU Usage: " ..
+        GetMainCpuUsage() ..
+        "\n\n"
 
     text = text ..
         "GPU Temp: " ..
