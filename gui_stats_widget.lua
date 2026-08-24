@@ -46,28 +46,20 @@ local function GetMainCpuTemp()
         return "N/A"
     end
 
-    local maxTemp = nil
-
     for _, hardware in ipairs(stats) do
 
         if hardware.hardwareType == "Cpu" then
 
             for _, sensor in ipairs(hardware.sensors) do
 
-                if sensor.sensorType == "Temperature" then
+                if sensor.sensorType == "Temperature" and sensor.sensorName == "CPU Package" then
 
-                    if not maxTemp or sensor.sensorValue > maxTemp then
-                        maxTemp = sensor.sensorValue
-                    end
+                    return string.format("%.1f °C", sensor.sensorValue)
 
                 end
             end
 
         end
-    end
-
-    if maxTemp then
-        return string.format("%.1f °C", maxTemp)
     end
 
     return "N/A"
