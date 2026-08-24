@@ -29,11 +29,13 @@ the game engine will read the file automatically from there
 # IMPORTANT -------------
 
 you will need to manualy change to your gpu type 
+```bash
 GPU TYPES -----
 local GpuNvidia = "GpuNvidia"
 local GpuIntel = "GpuIntel"
 local GpuAmd = "GpuAmd"
 GPU TYPES -----
+```
 
 find this code in gui_stats_widget.lua: 
 ```bash
