@@ -16,7 +16,7 @@ local text = "Loading stats..."
 
 local panel = {
     x1 = 1375,
-    y1 = 1000,
+    y1 = 990,
     x2 = 1550,
     y2 = 1078,
     round = 6
@@ -120,6 +120,31 @@ local function GetMainGpuTemp(gpuType)
     return "N/A"
 end
 
+local function GetMainGpuUsage(gpuType)
+
+    if not stats then
+        return "N/A"
+    end
+
+    for _, hardware in ipairs(stats) do
+
+        if hardware.hardwareType == gpuType then
+
+            for _, sensor in ipairs(hardware.sensors) do
+
+                if sensor.sensorType == "Load" and sensor.sensorName == "GPU Core" then
+
+                    return string.format("%.1f %%", sensor.sensorValue)
+
+                end
+            end
+
+        end
+    end
+
+    return "N/A"
+end
+
 function widget:GetInfo()
     return{
         name = "system stats display",
@@ -180,6 +205,13 @@ function widget:Update(dt)
         -- change to your gpu type here 
         GetMainGpuTemp(GpuNvidia) .. -- <------
         "\n"
+
+    text = text ..
+        "GPU Usage: " ..
+        -- change to your gpu type here
+        GetMainGpuUsage(GpuNvidia) .. -- <------
+        "\n"
+
 
 end
 
