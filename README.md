@@ -4,19 +4,18 @@ This is a Beyond all reason gui widget that
 displays system stats in game (NOT THE MENU/LOBBY)
 it consumes the output from the Open-Stat-Dump program
 can be found here 
-
-make sure to download and build this to use this widget
-
 ```bash
 https://github.com/DeclanFindlay/Open-Stat-Dump 
 ```
+make sure to download and build this to use this widget
+open-stat-dump will need to be running to get your system stats for this widget
 
 Beyond all reason can be found and downloaded here
 ```bash
 https://www.beyondallreason.info/download
 ```
 
-the repo can be found here 
+the Beyond all reason repo can be found here 
 ```bash
 https://github.com/beyond-all-reason/Beyond-All-Reason
 ```
@@ -45,24 +44,23 @@ find this code in gui_stats_widget.lua:
 -- change to your gpu type here 
 GetMainGpuTemp(GpuNvidia) .. -- <------
 ```
-
-note it is currently set to a nvidia gpu 
+note it is currently set to an nvidia gpu 
 
 open-stat-dump setup:
-make sure to set Open-Stat-Dump output location to the same location
-as the gui_stats_widget.lua file 
 
-and that you select the .lua file output option in Open-Stat-Dump
-you also need to set the file name to data for gui_stats_widget.lua
-to see it 
+make sure to set Open-Stat-Dump output location to the same location
+as the gui_stats_widget.lua file and that you select the .lua file output option in Open-Stat-Dump
+you also need to set the output file name to data for gui_stats_widget.lua to see it, 
+and set the gpu and cpu options to true the rest can be set to false 
 
 widget location adjustments:
+
 you may need to adjust the panal coord to change the panal location on your screen 
 eg. 
 ``` bash
 local panel = {
     x1 = 1375,
-    y1 = 1030,
+    y1 = 990,
     x2 = 1550,
     y2 = 1078,
     round = 6
