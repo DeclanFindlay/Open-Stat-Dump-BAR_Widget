@@ -1,36 +1,35 @@
-# Open-Stat-Dump-BAR_Widget -------------
+# Open-Stat-Dump-BAR_Widget 
 
-This is a Beyond all reason gui widget that
-displays system stats in game (NOT THE MENU/LOBBY)
-it consumes the output from the Open-Stat-Dump program
-can be found here 
-```bash
-https://github.com/DeclanFindlay/Open-Stat-Dump 
-```
-make sure to download and build this to use this widget
-open-stat-dump will need to be running to get your system stats for this widget
+This is a Beyond All Reason GUI widget that
+displays system stats in-game (NOT THE MENU/LOBBY).
+It consumes the output from the Open-Stat-Dump program,
+which can be found here:
+[Open-Stat-Dump](https://github.com/DeclanFindlay/Open-Stat-Dump) 
+Make sure to download and build it before using this widget.
+Open-Stat-Dump will need to be running to get your system stats for this widget.
 
-Beyond all reason can be found and downloaded here
-```bash
-https://www.beyondallreason.info/download
-```
+Beyond All Reason can be found and downloaded here:
+[Beyond All Reason](https://www.beyondallreason.info/download)
 
-the Beyond all reason repo can be found here 
-```bash
-https://github.com/beyond-all-reason/Beyond-All-Reason
-```
+The Beyond All Reason repo can be found here:
+[Beyond All Reason GitHub repository](https://github.com/beyond-all-reason/Beyond-All-Reason)
 
-# how to use Open-Stat-Dump-BAR_Widget -------------
+# How to use Open-Stat-Dump-BAR_Widget 
 
-simply place the gui_stats_widget.lua file in 
+Simply place the gui_stats_widget.lua file in:
 C:\Users\<YOUR_USER_NAME>\AppData\Local\Programs\Beyond-All-Reason\data\LuaUI\Widgets\
-you will need to create the Widgets folder if it dose not exist already 
+You will need to create the Widgets folder if it does not already exist.
 
-the game engine will read the file automatically from there
+The game engine will read the file automatically from there.
 
-# IMPORTANT -------------
+# IMPORTANT 
 
-you will need to manualy change to your gpu type 
+You will need to download and build Open-Stat-Dump first; it is a separate program.
+This BAR_Widget can't get your system stats by itself. It simply reads
+and displays the output from Open-Stat-Dump, which you can find here:
+[Open-Stat-Dump](https://github.com/DeclanFindlay/Open-Stat-Dump) 
+
+You will need to manually set the GPU type for your system.
 ```bash
 GPU TYPES -----
 local GpuNvidia = "GpuNvidia"
@@ -39,24 +38,24 @@ local GpuAmd = "GpuAmd"
 GPU TYPES -----
 ```
 
-find this code in gui_stats_widget.lua: 
+## Find this code in gui_stats_widget.lua:
 ```bash
--- change to your gpu type here 
+-- change to your GPU type here 
 GetMainGpuTemp(GpuNvidia) .. -- <------
 ```
-note it is currently set to an nvidia gpu 
+Note that it is currently configured for an Nvidia GPU.
 
-open-stat-dump setup:
+## Open-Stat-Dump setup:
 
-make sure to set Open-Stat-Dump output location to the same location
-as the gui_stats_widget.lua file and that you select the .lua file output option in Open-Stat-Dump
-you also need to set the output file name to data for gui_stats_widget.lua to see it, 
-and set the gpu and cpu options to true the rest can be set to false 
+Make sure to set the Open-Stat-Dump output location to the same location
+as the gui_stats_widget.lua file, and select the .lua file output option in Open-Stat-Dump.
+You also need to set the output file name to data for gui_stats_widget.lua to see it,
+and set the GPU and CPU options to true. The rest can be set to false.
 
-widget location adjustments:
+## Widget location adjustments:
 
-you may need to adjust the panal coord to change the panal location on your screen 
-eg. 
+You may need to adjust the panel coordinates to change the panel location on your screen.
+For example:
 ``` bash
 local panel = {
     x1 = 1375,
@@ -66,16 +65,16 @@ local panel = {
     round = 6
 }
 ```
-it is currently set to fit on a 1920 x 1080 monitor you should see it around the top right 
+It is currently set to fit on a 1920 x 1080 monitor. You should see it around the top right.
 <p>
     <img src="images/widget_location.png" width="600">
 </p>
 
-also make sure the widget is actually enabled in game eg.
+Also make sure the widget is actually enabled in-game. For example:
 <p>
     <img src="images/check_widget_enabled.png" width="600">
 </p>
 
-# License -------------
+# License 
 
-Open-Stat-Dump-BAR_Widget is under the MIT License check the License file for more information 
+Open-Stat-Dump-BAR_Widget is under the MIT License. Check the License file for more information.
