@@ -22,6 +22,13 @@ local panel = {
     round = 6
 }
 
+local function readDatafile()
+    -- using the spring engine file reading system, pcall function
+    local ok, loadedStats = pcall(VFS.Include, "LuaUI/Widgets/data.lua")
+
+    return ok, loadedStats
+end
+
 local function createPanel(panel)
 
     -- border
@@ -179,7 +186,7 @@ function widget:Update(dt)
 
     lastReload = 0
 
-    local ok, loadedStats = pcall(VFS.Include, "LuaUI/Widgets/data.lua")
+    local ok, loadedStats = readDatafile()
 
     if ok then
         stats = loadedStats
