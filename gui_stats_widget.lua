@@ -184,7 +184,7 @@ function widget:Update(dt)
     if ok then
         stats = loadedStats
     else
-        text = "Failed to load stats.lua"
+        text = "Failed to load data.lua"
         return
     end
 
