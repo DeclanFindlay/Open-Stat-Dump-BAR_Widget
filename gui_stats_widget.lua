@@ -47,108 +47,31 @@ local function createPanelData(panel, text)
 
 end
 
-local function GetMainCpuTemp()
+local function GetStats(stats, hardwareType, sensorType, sensorName)
 
     if not stats then
         return "N/A"
     end
 
     for _, hardware in ipairs(stats) do
-
-        if hardware.hardwareType == "Cpu" then
-
-            for _, sensor in ipairs(hardware.sensors) do
-
-                if sensor.sensorType == "Temperature" and sensor.sensorName == "CPU Package" then
-
-                    return string.format("%.1f °C", sensor.sensorValue)
-
-                end
-            end
-
-        end
-    end
-
-    return "N/A"
-end
-
-local function GetMainCpuUsage()
-
-    if not stats then
-        return "N/A"
-    end
-
-    for _, hardware in ipairs(stats) do
-
-        if hardware.hardwareType == "Cpu" then
+    
+        if hardware.hardwareType == hardwareType then
 
             for _, sensor in ipairs(hardware.sensors) do
 
-                if sensor.sensorType == "Load" and sensor.sensorName == "CPU Total" then
+                if sensor.sensorType == sensorType and sensor.sensorName == sensorName then
 
-                    return string.format("%.1f %%", sensor.sensorValue)
+                    if sensorType == "Temperature" then
+                        return string.format("%.1f °C", sensor.sensorValue)
+                    end
 
+                    if sensorType == "Load" then
+                        return string.format("%.1f %%", sensor.sensorValue)
+                    end
                 end
             end
-
         end
     end
-
-    return "N/A"
-end
-
-local function GetMainGpuTemp(gpuType)
-
-    if not stats then
-        return "N/A"
-    end
-
-    for _, hardware in ipairs(stats) do
-
-        if hardware.hardwareType == gpuType then
-
-            for _, sensor in ipairs(hardware.sensors) do
-
-                if sensor.sensorType == "Temperature" 
-                -- may need to change "GPU Core" to whatever your gpu ouput is 
-                -- currently set for GpuNvidia 
-                -- check the open-stat-dump output file (data.lua)
-                and sensor.sensorName == "GPU Core" then
-
-                    return string.format("%.1f °C", sensor.sensorValue)
-
-                end
-
-            end
-
-        end
-    end
-
-    return "N/A"
-end
-
-local function GetMainGpuUsage(gpuType)
-
-    if not stats then
-        return "N/A"
-    end
-
-    for _, hardware in ipairs(stats) do
-
-        if hardware.hardwareType == gpuType then
-
-            for _, sensor in ipairs(hardware.sensors) do
-
-                if sensor.sensorType == "Load" and sensor.sensorName == "GPU Core" then
-
-                    return string.format("%.1f %%", sensor.sensorValue)
-
-                end
-            end
-
-        end
-    end
-
     return "N/A"
 end
 
@@ -199,27 +122,28 @@ function widget:Update(dt)
 
     text = text ..
         "CPU Temp: " ..
-        GetMainCpuTemp() ..
+        GetStats(stats, "Cpu", "Temperature", "CPU Package") ..
         "\n"
 
     text = text ..
         "CPU Usage: " ..
-        GetMainCpuUsage() ..
+        GetStats(stats, "Cpu", "Load", "CPU Total") ..
         "\n\n"
 
     text = text ..
         "GPU Temp: " ..
         -- change to your gpu type here 
-        GetMainGpuTemp(GpuNvidia) .. -- <------
+        GetStats(stats, GpuNvidia, "Temperature", "GPU Core") .. -- <------
         "\n"
 
     text = text ..
         "GPU Usage: " ..
         -- change to your gpu type here
-        GetMainGpuUsage(GpuNvidia) .. -- <------
+        GetStats(stats, GpuNvidia, "Load", "GPU Core") .. -- <------
         "\n"
-
-
+        -- you may need to change the arguments in the GetStats functions to whatever your gpu ouput is 
+        -- currently set for GpuNvidia  
+        -- check the open-stat-dump output file (data.lua)
 end
 
 function widget:DrawScreen()
