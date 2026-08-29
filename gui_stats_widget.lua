@@ -1,16 +1,7 @@
--- gpu types, pick the right one for your machine
-
--- GPU TYPES -----
-local GpuNvidia = "GpuNvidia"
-local GpuIntel = "GpuIntel"
-local GpuAmd = "GpuAmd"
--- GPU TYPES -----
-
+local gpuType
 local RectRound
-
 local lastReload = 0
 local reloadPerSec = 1
-
 local stats = nil
 local text = "Loading stats..."
 
@@ -75,6 +66,24 @@ local function GetStats(stats, hardwareType, sensorType, sensorName)
     return "N/A"
 end
 
+local function GetGpuType(stats)
+
+    if not stats then
+        return "N/A"
+    end
+
+    for _, hardware in ipairs(stats) do
+    
+        if hardware.hardwareType == "GpuNvidia" or 
+            hardware.hardwareType == "GpuIntel" or 
+            hardware.hardwareType == "GpuAmd" then
+
+            return hardware.hardwareType
+        end
+    end   
+    return "N/A"
+end
+
 function widget:GetInfo()
     return{
         name = "system stats display",
@@ -94,10 +103,20 @@ function widget:Initialize()
         gl.Rect(x1, y1, x2, y2)
     end
 
+    -- read file once during initialization to get gpu type 
+    local ok, loadedStats = readDatafile()
+    if ok then
+        stats = loadedStats
+    else
+        text = "Failed to load data.lua"
+        return
+    end
+
+    gpuType = GetGpuType(stats)
+
     Spring.Echo("[system stats display] Loaded")
 
 end
-
 
 function widget:Update(dt)
 
@@ -132,14 +151,12 @@ function widget:Update(dt)
 
     text = text ..
         "GPU Temp: " ..
-        -- change to your gpu type here 
-        GetStats(stats, GpuNvidia, "Temperature", "GPU Core") .. -- <------
+        GetStats(stats, gpuType, "Temperature", "GPU Core") .. -- <------
         "\n"
 
     text = text ..
         "GPU Usage: " ..
-        -- change to your gpu type here
-        GetStats(stats, GpuNvidia, "Load", "GPU Core") .. -- <------
+        GetStats(stats, gpuType, "Load", "GPU Core") .. -- <------
         "\n"
         -- you may need to change the arguments in the GetStats functions to whatever your gpu ouput is 
         -- currently set for GpuNvidia  
