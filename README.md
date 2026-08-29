@@ -29,22 +29,6 @@ This BAR_Widget can't get your system stats by itself. It simply reads
 and displays the output from Open-Stat-Dump, which you can find here:
 [Open-Stat-Dump](https://github.com/DeclanFindlay/Open-Stat-Dump) 
 
-You will need to manually set the GPU type for your system.
-```bash
-GPU TYPES -----
-local GpuNvidia = "GpuNvidia"
-local GpuIntel = "GpuIntel"
-local GpuAmd = "GpuAmd"
-GPU TYPES -----
-```
-
-## Find this code in gui_stats_widget.lua:
-```bash
--- change to your GPU type here 
-GetMainGpuTemp(GpuNvidia) .. -- <------
-```
-Note that it is currently configured for an Nvidia GPU.
-
 ## Open-Stat-Dump setup:
 
 Make sure to set the Open-Stat-Dump output location to the same location
