@@ -38,15 +38,22 @@ and set the GPU and CPU options to true. The rest can be set to false.
 
 ## Widget location adjustments:
 
-You may need to adjust the panel coordinates to change the panel location on your screen.
+You may need to adjust the panel offsets to change the panel location on your screen.
 For example:
 ``` bash
 local panel = {
-    x1 = 1375,
-    y1 = 990,
-    x2 = 1550,
-    y2 = 1078,
-    round = 6
+    width = 165, -- panel width
+    height = 90, -- panel height
+    
+    -- base positions from the top right corner of your screen
+    -- top right = 0, 0
+    marginX = 50, 
+    marginY = 50, 
+
+    xOffset = -260, -- adjust this to move the panel on the x axis 
+    yOffset = 10, -- adjust this to move the panel on the y axis
+
+    round = 6 -- how "round" the corners are 
 }
 ```
 It is currently set to fit on a 1920 x 1080 monitor. You should see it around the top right.
