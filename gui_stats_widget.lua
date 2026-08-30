@@ -1,16 +1,24 @@
 local gpuType
 local RectRound
 local lastReload = 0
-local reloadPerSec = 1
+local reloadPerSec = 1 -- how often the function widget:Update(dt) runs 
 local stats = nil
-local text = "Loading stats..."
+local cpuRows = {}
+local gpuRows = {}
 
 local panel = {
-    x1 = 1375,
-    y1 = 990,
-    x2 = 1550,
-    y2 = 1078,
-    round = 6
+    width = 165, -- panel width
+    height = 90, -- panel height
+    
+    -- base positions from the top right corner of your screen
+    -- top right = 0, 0
+    marginX = 50, 
+    marginY = 50, 
+
+    xOffset = -260, -- adjust this to move the panel on the x axis 
+    yOffset = 10, -- adjust this to move the panel on the y axis
+
+    round = 6 -- how "round" the corners are 
 }
 
 local function readDatafile()
@@ -32,9 +40,27 @@ local function createPanel(panel)
 
 end
 
-local function createPanelData(panel, text)
+local function createPanelData(panel, cpuRows, gpuRows)
     gl.Color(1,1,1,1)
-    gl.Text(text, panel.x1 + 15, panel.y2 - 22, 15, "o")
+
+    -- panel data will follow the top left of the panel
+    local x = panel.x1 + 15
+    local y = panel.y2 - 22
+    local fontSize = 15
+    local lineHeight = 16
+
+    for _, row in ipairs(cpuRows) do
+        gl.Text(row, x, y, fontSize, "o")
+        y = y - lineHeight
+    end
+
+    -- create a space between cpu and gpu stats
+    y = y - 10
+
+    for _, row in ipairs(gpuRows) do
+        gl.Text(row, x, y, fontSize, "o")
+        y = y - lineHeight
+    end
 
 end
 
@@ -108,7 +134,8 @@ function widget:Initialize()
     if ok then
         stats = loadedStats
     else
-        text = "Failed to load data.lua"
+        cpuRows = "Failed to load data.lua"
+        gpuRows = "Failed to load data.lua"
         return
     end
 
@@ -125,6 +152,9 @@ function widget:Update(dt)
     if lastReload < reloadPerSec then
         return
     end
+    -- clear the cpu and gpu arrays to stop them appending the data
+    cpuRows = {}
+    gpuRows = {}
 
     lastReload = 0
 
@@ -133,39 +163,36 @@ function widget:Update(dt)
     if ok then
         stats = loadedStats
     else
-        text = "Failed to load data.lua"
+        cpuRows = "Failed to load data.lua"
+        gpuRows = "Failed to load data.lua"
         return
     end
 
-    text = ""
+    table.insert(cpuRows, "CPU Temp: " .. GetStats(stats, "Cpu", "Temperature", "CPU Package"))
+        
+    table.insert(cpuRows, "CPU Usage: " .. GetStats(stats, "Cpu", "Load", "CPU Total"))
 
-    text = text ..
-        "CPU Temp: " ..
-        GetStats(stats, "Cpu", "Temperature", "CPU Package") ..
-        "\n"
+    table.insert(gpuRows, "GPU Temp: " .. GetStats(stats, gpuType, "Temperature", "GPU Core")) 
 
-    text = text ..
-        "CPU Usage: " ..
-        GetStats(stats, "Cpu", "Load", "CPU Total") ..
-        "\n\n"
-
-    text = text ..
-        "GPU Temp: " ..
-        GetStats(stats, gpuType, "Temperature", "GPU Core") .. -- <------
-        "\n"
-
-    text = text ..
-        "GPU Usage: " ..
-        GetStats(stats, gpuType, "Load", "GPU Core") .. -- <------
-        "\n"
-        -- you may need to change the arguments in the GetStats functions to whatever your gpu ouput is 
-        -- currently set for GpuNvidia  
-        -- check the open-stat-dump output file (data.lua)
+    table.insert(gpuRows, "GPU Usage: " .. GetStats(stats, gpuType, "Load", "GPU Core"))
+    -- you may need to change the arguments in the GetStats functions to whatever your gpu/cpu ouput is 
+    -- currently set for GpuNvidia  
+    -- check the open-stat-dump output file (data.lua)
 end
 
 function widget:DrawScreen()
+
+    -- get user screen width and height using a spring engine function
+    local screenWidth, screenHeight = Spring.GetViewGeometry()
+
+    -- calculate the panel location 
+    panel.x1 = screenWidth - panel.width - panel.marginX + panel.xOffset
+    panel.y1 = screenHeight - panel.height - panel.marginY + panel.yOffset
+    panel.x2 = screenWidth - panel.marginX + panel.xOffset
+    panel.y2 = screenHeight - panel.marginY + panel.yOffset
     
+    -- draw the panel and its data
     createPanel(panel)
-    createPanelData(panel, text)
+    createPanelData(panel, cpuRows, gpuRows)
 
 end
